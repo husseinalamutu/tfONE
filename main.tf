@@ -117,26 +117,26 @@ resource "aws_instance" "nginx" {
   instance_type = "t2.micro"
   key_name = aws_key_pair.greymatter.key_name
   vpc_security_group_ids = [aws_security_group.greymatter.id]
-  # # storing the nginx.sh file in the EC2 instnace
-  # provisioner "file" { 
-  #   source      = "nginx.sh"
-  #   destination = "/tmp/nginx.sh"
-  # }
-  # # Executing the nginx.sh file
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/nginx.sh",
-  #     "sudo /tmp/nginx.sh"
-  #   ]
-  # }
-  # connection {
-  #   type        = "ssh"
-  #   host        = self.public_ip
-  #   user        = "ubuntu"
-  #   private_key = file("${aws_key_pair.greymatter.key_name}.pem")
-  #   # timeout     = "4m"
-  # }
-  user_data = "${file("nginx.sh")}"
+  # storing the nginx.sh file in the EC2 instnace
+  provisioner "file" { 
+    source      = "nginx.sh"
+    destination = "/tmp/nginx.sh"
+  }
+  # Executing the nginx.sh file
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/nginx.sh",
+      "sudo /tmp/nginx.sh"
+    ]
+  }
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ubuntu"
+    private_key = file("${aws_key_pair.greymatter.key_name}.pem")
+    # timeout     = "4m"
+  }
+  
   tags = { 
     Name  = "NGINX"
   }
@@ -148,26 +148,26 @@ resource "aws_instance" "apache" {
   instance_type = "t2.micro"
   key_name = aws_key_pair.greymatter.key_name
   vpc_security_group_ids = [aws_security_group.greymatter.id]
-  # # storing the apache.sh file in the EC2 instnace
-  # provisioner "file" { 
-  #   source      = "apache.sh"
-  #   destination = "/tmp/apache.sh"
-  # }
-  # # Executing the apache.sh file
-  # provisioner "remote-exec" {
-  #   inline = [
-  #     "chmod +x /tmp/apache.sh",
-  #     "sudo /tmp/apache.sh"
-  #   ]
-  # }
-  # connection {
-  # type        = "ssh"
-  # host        = self.public_ip
-  # user        = "ubuntu"
-  # private_key = file("${aws_key_pair.greymatter.key_name}.pem")
-  # # timeout     = "4m"
-  # }
-  user_data = "${file("apache.sh")}"
+  # storing the apache.sh file in the EC2 instnace
+  provisioner "file" { 
+    source      = "apache.sh"
+    destination = "/tmp/apache.sh"
+  }
+  # Executing the apache.sh file
+  provisioner "remote-exec" {
+    inline = [
+      "chmod +x /tmp/apache.sh",
+      "sudo /tmp/apache.sh"
+    ]
+  }
+  connection {
+  type        = "ssh"
+  host        = self.public_ip
+  user        = "ubuntu"
+  private_key = file("${aws_key_pair.greymatter.key_name}.pem")
+  # timeout     = "4m"
+  }
+  
   tags = { 
     Name  = "APACHE"
   }
